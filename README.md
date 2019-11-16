@@ -1,5 +1,5 @@
 # **ReadME**
-
+[Chinese Version 中文版][1]
 ## **1.Setup**
 ### **1.ClientMode**
  - 1.Open the scene
@@ -146,10 +146,10 @@
 ````
 
 #### 2. Attributes 
-- 1. EntityCountAttribute
+- 1. InitEntityCountAttribute
    Here you can define the init Entity count，use for optimize , similar to the  "capacity" of List<T> 
 ``` 
-    [EntityCount(1000)]
+    [InitEntityCount(1000)]
     public partial class BoidCell : IEntity{
         public CellData Cell;
     }
@@ -230,12 +230,12 @@
 2. Entity can inherite from other Entity
 - Define
 ```
-    [EntityCount(20)]
+    [InitEntityCount(20)]
     public partial class TestEntity1 : IEntity{
         public CellData Cell;
     }
 
-    [EntityCount(100)]
+    [InitEntityCount(100)]
     public partial class TestEntity2 : TestEntity1{
         public SpawnData Spawn;
     }
@@ -275,7 +275,7 @@
 3. IUpdateViewEntity
 If you wan to synchronize the Position and Rotation of Entity from UnsafeECS  to Unity, you should let the entity inherite from IUpdateViewEntity, reference to "CodeGen_UpdateViewStateSystem.cs"
 ```
-    [EntityCount(2000)]
+    [InitEntityCount(2000)]
     public partial class Boid: IEntity,IUpdateViewEntity{
         public Transform3D Transform;
         public Prefab Prefab;
@@ -287,7 +287,7 @@ If you wan to synchronize the Position and Rotation of Entity from UnsafeECS  to
 If you want your entity has a gameObject proxy to Attach some VFX or some unity Component, You shouldlet the entity inherite from "IBindViewEntity"，reference to  CodeGen_EntityView.cs
 
 ```
-    [EntityCount(2)]
+    [InitEntityCount(2)]
     public partial class BoidTarget: IEntity,IBindViewEntity {
         public Transform3D Transform;
         public Prefab Prefab;
@@ -488,3 +488,6 @@ eg：
         }
       ...
 ```
+
+
+ [1]: https://github.com/JiepengTan/LockstepECS_Document/blob/master/README_CN.md
