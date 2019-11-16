@@ -1,35 +1,35 @@
 # **ReadME**
 
-## **1.安装运行**
+## **1.Setup**
 ### **1.ClientMode**
- - 1.打开场景
+ - 1.Open the scene
 ![Screen Shot 2019-11-13 at 4.48.20 PM.png](https://upload-images.jianshu.io/upload_images/11593954-fb2066c0652e5cd0.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-- 2. 确保钩上了 ClientMode  选项
+- 2. Make sure has turn ClientMode on 
 ![Screen Shot 2019-11-13 at 4.49.50 PM.png](https://upload-images.jianshu.io/upload_images/11593954-5dafa8d3640934b2.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-- 3. 运行 游戏
-  A  D  控制鲨鱼方向
-  Space  释放技能 
+- 3. Run game
+  A  D :control move direction
+  Space :release skill
 
-### **2.联网模式**
-- 1.拷贝Assets/LockstepECS/DataAndTools.zip 到Assets/../DataAndTools.zip 
+### **2.Networking Mode**
+- 1.Copy "Assets/LockstepECS/DataAndTools.zip"  to "Assets/../DataAndTools.zip "
 ![Screen Shot 2019-11-13 at 4.52.02 PM.png](https://upload-images.jianshu.io/upload_images/11593954-557b9e55517c2209.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 ![Screen Shot 2019-11-13 at 4.52.35 PM.png](https://upload-images.jianshu.io/upload_images/11593954-e7bfe217f459cf3d.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-- 2. 解压
+- 2. Decompress 
 ![Screen Shot 2019-11-13 at 4.54.05 PM.png](https://upload-images.jianshu.io/upload_images/11593954-5bff88745d4fa63a.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-- 3.打开Game.sln
+- 3.Open **Game.sln**
 ![Screen Shot 2019-11-13 at 4.59.36 PM.png](https://upload-images.jianshu.io/upload_images/11593954-b4990f7daa51223e.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-- 4.编译并运行 Game.sln
+- 4.Build and Run **Game.sln**
 ![[图片上传中...(Screen Shot 2019-11-13 at 4.50.45 PM.png-75d531-1573782602414-0)]
 ](https://upload-images.jianshu.io/upload_images/11593954-33601348642f30af.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
-- 5.确保关闭了单机模式  ClientMode
+- 5.Make sure you had turn **ClientMode** off
 ![Screen Shot 2019-11-13 at 4.50.45 PM.png](https://upload-images.jianshu.io/upload_images/11593954-0dbb32d16f646c97.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 - 6.Build 
@@ -38,27 +38,29 @@
 - 7.Run Client
 ![Screen Shot 2019-11-13 at 5.07.33 PM.png](https://upload-images.jianshu.io/upload_images/11593954-7f73394ad639eadf.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-- 8. 现在是简单帧同步模式 
+- 8. Now it simple Lockstep Mode
 
 ![Screen Shot 2019-11-13 at 5.09.51 PM.png](https://upload-images.jianshu.io/upload_images/11593954-dbc45db61ba001d9.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
 
-（Build 版本代码中为了方便测试，做了限制自动绕圈圈，你可以修改他）
+（In order to test Networking mode,I make the shark spin around a point, you can modify the code in below picture ）
 ![Screen Shot 2019-11-15 at 10.04.02 AM.png](https://upload-images.jianshu.io/upload_images/11593954-30209b83a9618d66.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-## **2. 开发**
-### 1. 目录安排
+## **2. Develop with LockstepECS**
+
+**By convention, You should not call the  generated method which start with "_" ，eg:_DoDestroyEntity**
+### 1. Directory
 ![Screen Shot 2019-11-15 at 10.14.28 AM.png](https://upload-images.jianshu.io/upload_images/11593954-512d44c85f835292.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 - 1. Game.Model
-   这里放置的是MVC 中Model and Control 代码（Logic 层）
+   Here is MVC's **Model and Controler** code（Logic Layer）
 - 2. Game.View
-   这里放置的是MVC 中View 代码（View 层），依赖于Model  层
+   Here is MVC's **View** code（View Layer），Depend on Logic Layer
 - 3. Tools.UnsafeECS.ECSDefine.Game 
-   这里放置的是你对游戏中 Entity  Component  System 以及全局状态 State 的定义,必须保证该子dll  是能编译的（不能依赖于Model 或 View 层）
+   You  should declare Entity  Component  System Global state and Events in this dll, And you must make sure it can be build alone,（Can not depend on (Game.Model or Game.View)）
   
 
-### 3. Tools.UnsafeECS.ECSDefine 定义详解
-#### 1. 接口定义
+### 3. How to use Tools.UnsafeECS.ECSDefine
+#### 1. Interfaces
 ```cpp
    // Copyright 2019 谭杰鹏. All Rights Reserved //https://github.com/JiepengTan 
     /// should declare a Method like:
@@ -143,9 +145,9 @@
     public interface IUpdateViewEntity{}
 ````
 
-#### 2. 属性集合 
+#### 2. Attributes 
 - 1. EntityCountAttribute
-   定义默认初始化的保留的Entity 数量，用于优化  类似List<T> 中的 capacity 中的概念
+   Here you can define the init Entity count，use for optimize , similar to the  "capacity" of List<T> 
 ``` 
     [EntityCount(1000)]
     public partial class BoidCell : IEntity{
@@ -153,14 +155,8 @@
     }
 ``` 
 
-- 1. NoGenCodeAttribute
-提示代码生成器在代码生成的过程中忽略掉本类型
-``` 
-    [NoGenCode] public class ConfigTargetInfo{}
-``` 
-
-#### 3. Componet 定义
-1. Component 中可以使用的类型
+#### 3. Componet 
+1. All type can use in Component define 
 ```   
    bool
    float  //注意不支持double 
@@ -181,7 +177,7 @@
    Entity 
 ```
 
-2. 注意事项，应该使用Public 定义属性，同时需要最终继承自IGameComponent
+2. Warning!!，You should only declare property in  "Public" ，And should make sure the component is an "IGameComponent"
 ```
     public partial class BoidState : IGameComponent {
         public float SinkTimer;
@@ -190,10 +186,10 @@
         public int KillerIdx;
     }
 ```
-3. 可以使用继承
+3. Component can inherite from other component
 -  Component define 
 ```
-     public partial class TestCompBase1 : IGameComponent {
+    public partial class TestCompBase1 : IGameComponent {
         public int Count;
     }
     public partial class TestCompChild2 : TestCompBase1 {
@@ -229,9 +225,9 @@
         }
     }
 ```
-#### 4. Entity 定义
-1. 注意事项，应该使用Public 定义属性，同时需要最终继承自IEntity
-2. 可以使用继承
+#### 4. Entity 
+1. Warning!!，You should only declare property in  "Public" ，And should make sure the component is an "IEntity"
+2. Entity can inherite from other Entity
 - Define
 ```
     [EntityCount(20)]
@@ -277,13 +273,31 @@
     }
 ```
 3. IUpdateViewEntity
-如果需要将UnsafeECS 中的Entity 的位置于旋转属性同步到Unity 中的Entity ，需要继承自IUpdateViewEntity接口，参考代码 CodeGen_UpdateViewStateSystem.cs
-
+If you wan to synchronize the Position and Rotation of Entity from UnsafeECS  to Unity, you should let the entity inherite from IUpdateViewEntity, reference to "CodeGen_UpdateViewStateSystem.cs"
+```
+    [EntityCount(2000)]
+    public partial class Boid: IEntity,IUpdateViewEntity{
+        public Transform3D Transform;
+        public Prefab Prefab;
+        public BoidState State;
+        public BoidTag Tag;
+    }
+```
 4. IBindViewEntity
-如果希望能够以GameObject 的形式 绑定相关的Entity,这样方便挂接特效等一些View 层的脚本，可以继承自IBindViewEntity 接口，参考代码 CodeGen_EntityView.cs
+If you want your entity has a gameObject proxy to Attach some VFX or some unity Component, You shouldlet the entity inherite from "IBindViewEntity"，reference to  CodeGen_EntityView.cs
+
+```
+    [EntityCount(2)]
+    public partial class BoidTarget: IEntity,IBindViewEntity {
+        public Transform3D Transform;
+        public Prefab Prefab;
+        public TargetMoveInfo MoveInfo;
+        public BoidTargetTag Tag;
+    }
+```
 ![Screen Shot 2019-11-15 at 1.01.13 PM.png](https://upload-images.jianshu.io/upload_images/11593954-d604b2d2a84b8c03.png?imageMogr2/auto-orient/strip%7CimageView2/2/w/1240)
 
-#### 5. System
+#### 5. Systems
 1. **Overview**
 
 - System Define 
@@ -292,9 +306,8 @@
 - System Implement
     - GameJobSystem
     - GameExecuteSystem
-
-- **其中以Job开头的定义，在UNING_UNITY_BURST_JOB  定义了的情况下，会使用Unity 的Burst 进行编译，且会交由Unity 的JobSystem 进行调度，否则会在主线程中调度，所以这类System,不能修改全局的状态，只能访问相关的属性**
-- **而 IPureSystem 一定会被主线程调用，适合处理涉及全局状态的改变的任务**
+- If the system was declared as an **IJobSystem** and macro **UNING_UNITY_BURST_JOB** was defined this system will be complied by Unity's Burst compiler and scheduled by Unity's JobSystem,Otherwise it will be scheduled call in **MainThread**，so that kind of System should not modify global states (can read , should not write)
+- If the system was declared as an **IPureSystem**, then it would be scheduled in main thread ,so this kind of system can deal some Task which need modify global state eg: DestroyEntity
 
 ```
  public abstract unsafe class BaseExecuteSystem : BaseSystem, IExecuteSystem {
@@ -308,15 +321,16 @@
     }
  public partial class GameExecuteSystem :BaseExecuteSystem{   }
 ```
-- 你可以Override BeforeSchedule  在正式调度前去设置一下状态，方便在Execute 中访问
-- 你可以Override AfterSchedule  在调度完成后去清理一下状态
+- **BeforeSchedule**  this function would call before Execute，you can override this function to setup some state used in function "Execute",if this function's return value was "False" ,this System would not be scheduled in this frame
+- **AfterSchedule**  this function would call after Execute, you can override it to do some clean task after "Execute" function was scheduled
 
 2. **PureSystem**
-这类System 继承自IPureSystem 如：
+this kind of system was inherited from IPureSystem eg：
 - IPureSystem
 - IPureSystemWithEntity
+that kind of system  would be scheduled in main thread ,so this kind of system can deal some Task which need modify global state eg: CreateEnttiy,DestroyEntity,Modify _gameStateService's property
+you can reference to the system "SpawnSystem" in demo.
 
-这类System 中的Execute 方法必定是在主线程中调用，一旦涉及到全局状态的修改，就必须使用这种类型的System , 比如 Entity 的创建以及销毁，全局状态的设置，如demo中的SpawnSystem
 - System Define 
 ```
     public class SpawnSystem : IPureSystemWithEntity {
@@ -343,7 +357,6 @@
                 boidPtr->Transform.Scale = 1;
                 boidPtr->Prefab.AssetId = assetData.AssetId;
             }
-
             spawnPositions.Dispose();
             context.PostCmdDestroyEntity(entity);
         }
@@ -351,15 +364,14 @@
 ```
 
 3. **JobSystem**
-这类System 继承自IJobSystem 如：
+this kind of system was inherited from IPureSystem eg：
 - IJobSystem
 - IJobSystemWithEntity
 - IJobForEachSystem
 - IJobForEachSystemWithEntity
 - IJobHashMapSystem
-If macro UNING_UNITY_BURST_JOB was defined
-    /// this system will be complied by Unity's Burst compiler and scheduled by Unity's JobSystem,Otherwise it will be scheduled call in MainThread
-  
+If macro UNING_UNITY_BURST_JOB was defined this system will be complied by Unity's Burst compiler and scheduled by Unity's JobSystem,Otherwise it will be scheduled call in MainThread
+**WARNING:should not modify global states (can read , should not write)**
 - System Define
 ```    
     public class SinkSystem : IJobSystem {
@@ -390,8 +402,8 @@ If macro UNING_UNITY_BURST_JOB was defined
     }
 ```
 #### 6. Status & Config
-- 你需要在 GameStateService 定义游戏中会使用到的可以变化的变量
-框架会帮你自动进行状态的备份以及还原
+- You should declare all property that you need to change or maintain in game at "GameStateService" 
+framework would backup or rollback it if need.
 ```
     public partial class GameStateService : IServiceState,IGameStateService {
         // states
@@ -406,8 +418,7 @@ If macro UNING_UNITY_BURST_JOB was defined
         
     }
 ```
-
-- 如果你的变量是配置，在游戏加载后就不再变动，可以放置在GameConfigService 中，框架会自动帮你生成相关的ScriptObject  方便进行配置（其中使用到的类型不需要在 ECDefine  中定义，只需要声明有这样的一个类型，并且可以编译通过即可，可以参考 Tools.UnsafeECS.ECDefine.Game/Src/Unsafe/Status.cs）
+- if you want to config some variable, you can declare they in class **GameConfigService** ，framework would generate a ScriptObject to config (The class using in ECDefine  only need a declare( doesn't need all  definition)，to make sure it can be compile，reference to Tools.UnsafeECS.ECDefine.Game/Src/Unsafe/Status.cs)
 ```
     public partial class GameConfigService : IServiceState,IGameConfigService {
         public string RelPath;
@@ -435,8 +446,8 @@ If macro UNING_UNITY_BURST_JOB was defined
    	   	public SkillData SkillData;
     }
 ```
-框架会自动生成相关的Service  
-自需要在相关的Service 中实现相应的事件的响应，或者二次派发亦可，
+ framework would generated some code to implement they in IGameEventService  
+you can implement IGameEventService, or reRaise these event;
  
 ```
     public unsafe partial interface IGameEventService : IService{
@@ -448,8 +459,8 @@ If macro UNING_UNITY_BURST_JOB was defined
             );    
     } 
 ```
-可以在相应的GameExecuteSystem 中调用 RaiseEventXxxx 事件
-如：
+you can call function RaiseEventXxxx  in GameExecuteSystem
+eg：
 ```
     public unsafe partial class SkillSystem : GameExecuteSystem {
         private LFloat _deltaTime;
@@ -477,5 +488,3 @@ If macro UNING_UNITY_BURST_JOB was defined
         }
       ...
 ```
-
-By convention, You should not call the  generated method which start with _ ，eg:_DoDestroyEntity
