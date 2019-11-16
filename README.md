@@ -1,4 +1,28 @@
 # **ReadME**
+
+```
+-------------------------------------------------------------
+QUICK START
+-------------------------------------------------------------
+1. ClientMode :Open Scene LockstepECS/Example/Demo_Boid and Run it;
+
+-------------------------------------------------------------
+USER SUPPORT
+-------------------------------------------------------------
+If you have some problem about how to use LockstepECS,
+you can send me a email
+2314215231@qq.com
+
+-------------------------------------------------------------
+Thanks for using LockstepECS!
+More document about LockstepECS is on this hub
+https://github.com/JiepengTan/LockstepECS_Document
+-------------------------------------------------------------
+```
+
+
+
+
 [Chinese Version][1]
 ## **1.Setup**
 ### **1.ClientMode**
